@@ -11,6 +11,8 @@
 		607FFDFD2981CF7000007403 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFDFC2981CF7000007403 /* ContentView.swift */; };
 		607FFDFF2981CF7100007403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FFDFE2981CF7100007403 /* Assets.xcassets */; };
 		607FFE022981CF7100007403 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FFE012981CF7100007403 /* Preview Assets.xcassets */; };
+		607FFE0B2981E3AE00007403 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFE0A2981E3AE00007403 /* ViewModel.swift */; };
+		607FFE0D29837DC500007403 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFE0C29837DC500007403 /* SongView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,10 @@
 		607FFDFC2981CF7000007403 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		607FFDFE2981CF7100007403 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		607FFE012981CF7100007403 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		607FFE082981DA9D00007403 /* Shazam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shazam.entitlements; sourceTree = "<group>"; };
+		607FFE092981DC4F00007403 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		607FFE0A2981E3AE00007403 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		607FFE0C29837DC500007403 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +57,14 @@
 		607FFDF92981CF7000007403 /* Shazam */ = {
 			isa = PBXGroup;
 			children = (
+				607FFE092981DC4F00007403 /* Info.plist */,
+				607FFE082981DA9D00007403 /* Shazam.entitlements */,
 				607FFDFA2981CF7000007403 /* ShazamApp.swift */,
 				607FFDFC2981CF7000007403 /* ContentView.swift */,
 				607FFDFE2981CF7100007403 /* Assets.xcassets */,
 				607FFE002981CF7100007403 /* Preview Content */,
+				607FFE0A2981E3AE00007403 /* ViewModel.swift */,
+				607FFE0C29837DC500007403 /* SongView.swift */,
 			);
 			path = Shazam;
 			sourceTree = "<group>";
@@ -138,7 +148,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FFDFD2981CF7000007403 /* ContentView.swift in Sources */,
+				607FFE0B2981E3AE00007403 /* ViewModel.swift in Sources */,
 				607FFDFB2981CF7000007403 /* ShazamApp.swift in Sources */,
+				607FFE0D29837DC500007403 /* SongView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,12 +276,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shazam/Shazam.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shazam/Preview Content\"";
 				DEVELOPMENT_TEAM = YZFLL9W7WK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Shazam/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This is so your device can hear the audio.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,12 +308,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shazam/Shazam.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shazam/Preview Content\"";
 				DEVELOPMENT_TEAM = YZFLL9W7WK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Shazam/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This is so your device can hear the audio.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
