@@ -16,6 +16,7 @@ class ViewModel: NSObject, ObservableObject {
 	var session: SHSession?
 	@Published var matchedSong: SHMediaItem?
 	@Published var listening: Bool = false
+	@Published var newMatchedSong: Bool = false
 	
 	override init() {
 		super.init()
@@ -55,6 +56,13 @@ class ViewModel: NSObject, ObservableObject {
 			// Throw an error if the audio engine is already running.
 			guard !audioEngine.isRunning else { return }
 			let audioSession = AVAudioSession.sharedInstance()
+			
+			// Audio Engine is already running, we just need to un-pause it
+			if audioEngine.isRunning {
+				try? self.audioEngine.start()
+				self.listening = true
+				return
+			}
 			
 			// Ask the user for permission to use the mic if required then start the engine.
 			try audioSession.setCategory(.playAndRecord)
@@ -96,6 +104,29 @@ extension ViewModel: SHSessionDelegate {
 	func session(_ session: SHSession, didFind match: SHMatch) {
 		guard let mediaItem = match.mediaItems.first else { return }
 		Task {
+			if mediaItem != self.matchedSong {
+				let newCodableSHMediaItem = CodableSHMediaItem(title: mediaItem.title, subtitle: mediaItem.subtitle, artist: mediaItem.artist, artworkURL: mediaItem.artworkURL, videoURL: mediaItem.videoURL, genres: mediaItem.genres, explicitContent: mediaItem.explicitContent, appleMusicURL: mediaItem.appleMusicURL, webURL: mediaItem.webURL)
+				
+				SongStore.load { result in
+					switch result {
+					case .failure(let error):
+						fatalError(error.localizedDescription)
+					case .success(var songs):
+						songs.append(newCodableSHMediaItem)
+						
+						SongStore.save(songs: songs) { result in
+							if case .failure(let error) = result {
+								fatalError(error.localizedDescription)
+							}
+						}
+					}
+				}
+				
+				self.newMatchedSong = true
+				self.stopListening()
+			} else {
+				self.newMatchedSong = false
+			}
 			self.matchedSong = mediaItem
 		}
 	}
