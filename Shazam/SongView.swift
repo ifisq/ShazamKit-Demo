@@ -3,7 +3,7 @@
 //  Shazam
 //
 //  Created by Aryan Nambiar on 1/26/23.
-//
+//  This view displays song metadata for Shazamed songs
 
 import SwiftUI
 import ShazamKit
@@ -47,6 +47,7 @@ struct SongView: View {
 			}
 			.overlay(alignment: .bottomTrailing) {
 				if matchedSong.explicitContent == true {
+					// Explicit Symbol
 					Image(systemName: "e.square.fill")
 						.padding(.trailing, 10)
 						.padding(.bottom, 10)

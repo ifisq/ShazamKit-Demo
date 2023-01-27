@@ -3,7 +3,7 @@
 //  Shazam
 //
 //  Created by Aryan Nambiar on 1/25/23.
-//
+//  This ViewModel manages the Shazam process - boilerplate ShazamKit code was sourced from Apple's "Matching audio using the built-in microphone" article which can be found here: https://developer.apple.com/documentation/shazamkit/shsession/matching_audio_using_the_built-in_microphone
 
 import AVKit
 import ShazamKit
@@ -77,11 +77,11 @@ class ViewModel: NSObject, ObservableObject {
 	}
 	
 	func stopListening() {
-		// Check if the audio engine is already recording.
+		// Check if the audio engine is recording before stopping it.
 		if audioEngine.isRunning {
 			audioEngine.pause()
-			self.listening = false
 		}
+		self.listening = false
 	}
 	
 	func match() {
@@ -105,8 +105,10 @@ extension ViewModel: SHSessionDelegate {
 		guard let mediaItem = match.mediaItems.first else { return }
 		Task {
 			if mediaItem != self.matchedSong {
-				let newCodableSHMediaItem = CodableSHMediaItem(title: mediaItem.title, subtitle: mediaItem.subtitle, artist: mediaItem.artist, artworkURL: mediaItem.artworkURL, videoURL: mediaItem.videoURL, genres: mediaItem.genres, explicitContent: mediaItem.explicitContent, appleMusicURL: mediaItem.appleMusicURL, webURL: mediaItem.webURL)
+				// New Shazam Match
+				let newCodableSHMediaItem = buildCodableSHMediaItem(mediaItem: mediaItem)
 				
+				// Update Song Store with new match
 				SongStore.load { result in
 					switch result {
 					case .failure(let error):
@@ -119,10 +121,11 @@ extension ViewModel: SHSessionDelegate {
 								fatalError(error.localizedDescription)
 							}
 						}
+						
+						self.newMatchedSong = true
 					}
 				}
 				
-				self.newMatchedSong = true
 				self.stopListening()
 			} else {
 				self.newMatchedSong = false

@@ -14,6 +14,7 @@
 		607FFE0B2981E3AE00007403 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFE0A2981E3AE00007403 /* ViewModel.swift */; };
 		607FFE0D29837DC500007403 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFE0C29837DC500007403 /* SongView.swift */; };
 		607FFE122983A1D800007403 /* SongStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFE112983A1D800007403 /* SongStore.swift */; };
+		607FFE142984715E00007403 /* CodableSHMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FFE132984715E00007403 /* CodableSHMediaItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		607FFE0A2981E3AE00007403 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		607FFE0C29837DC500007403 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
 		607FFE112983A1D800007403 /* SongStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongStore.swift; sourceTree = "<group>"; };
+		607FFE132984715E00007403 /* CodableSHMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableSHMediaItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				607FFE092981DC4F00007403 /* Info.plist */,
 				607FFE082981DA9D00007403 /* Shazam.entitlements */,
 				607FFDFA2981CF7000007403 /* ShazamApp.swift */,
+				607FFE132984715E00007403 /* CodableSHMediaItem.swift */,
 				607FFDFC2981CF7000007403 /* ContentView.swift */,
 				607FFDFE2981CF7100007403 /* Assets.xcassets */,
 				607FFE002981CF7100007403 /* Preview Content */,
@@ -153,6 +156,7 @@
 				607FFDFD2981CF7000007403 /* ContentView.swift in Sources */,
 				607FFE0B2981E3AE00007403 /* ViewModel.swift in Sources */,
 				607FFDFB2981CF7000007403 /* ShazamApp.swift in Sources */,
+				607FFE142984715E00007403 /* CodableSHMediaItem.swift in Sources */,
 				607FFE122983A1D800007403 /* SongStore.swift in Sources */,
 				607FFE0D29837DC500007403 /* SongView.swift in Sources */,
 			);

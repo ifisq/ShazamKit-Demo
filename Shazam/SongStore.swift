@@ -3,24 +3,12 @@
 //  Shazam
 //
 //  Created by Aryan Nambiar on 1/27/23.
-//
+//  Note: This file is based on the "Persisting Data" tutorial from Apple's website: https://developer.apple.com/tutorials/app-dev-training/persisting-data
 
 import Foundation
 import SwiftUI
-import ShazamKit
 
-struct CodableSHMediaItem: Codable, Hashable {
-	let title: String?
-	let subtitle: String?
-	let artist: String?
-	let artworkURL: URL?
-	let videoURL: URL?
-	let genres: Array<String>
-	let explicitContent: Bool
-	let appleMusicURL: URL?
-	let webURL: URL?
-}
-
+// Data Store
 class SongStore: ObservableObject {
 	@Published var songs: [CodableSHMediaItem] = []
 	
@@ -32,6 +20,7 @@ class SongStore: ObservableObject {
 			.appendingPathComponent("songs.data")
 	}
 	
+	// Load songs.data from file
 	static func load(completion: @escaping (Result<[CodableSHMediaItem], Error>)->Void) {
 		DispatchQueue.global(qos: .background).async {
 			do {
@@ -54,6 +43,7 @@ class SongStore: ObservableObject {
 		}
 	}
 	
+	// Save list of CodableSHMediaItems to songs.data
 	static func save(songs: [CodableSHMediaItem], completion: @escaping (Result<Int, Error>)->Void) {
 		DispatchQueue.global(qos: .background).async {
 			do {
