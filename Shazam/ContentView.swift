@@ -12,6 +12,7 @@ struct ContentView: View {
 	@StateObject private var viewModel = ViewModel()
 	@StateObject private var store = SongStore()
 	@State private var showShazamSheet = false
+	@Environment(\.scenePhase) var scenePhase
 	
 	// Fit as many grid items as possible (proper formatting on iPad)
 	let columns = [
@@ -32,6 +33,12 @@ struct ContentView: View {
 					.padding(.horizontal, 20)
 					.font(.system(size: 20, weight: .semibold, design: .default))
 					.frame(maxWidth: .infinity, alignment: .leading)
+				
+				if (store.songs.isEmpty) {
+					Text("Shazam some songs for them to appear here!")
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.foregroundColor(Color(uiColor: .systemGray))
+				}
 				
 				ScrollView (.vertical, showsIndicators: false) {
 					 LazyVGrid(columns: columns, spacing: 20) {
@@ -57,14 +64,23 @@ struct ContentView: View {
 								 )
 								 .brightness(-0.4)
 								 .overlay(alignment: .bottomLeading) {
-									 Text(song.title ?? "")
-										.padding()
-										.multilineTextAlignment(.leading)
+									 VStack(spacing: 1) {
+										 Text(song.title ?? "")
+											.lineLimit(1)
+											.fontWeight(.semibold)
+											.frame(maxWidth: .infinity, alignment: .leading)
+										 Text(song.artist ?? "")
+											 .lineLimit(1)
+											.frame(maxWidth: .infinity, alignment: .leading)
+											.font(.caption)
+									 }
+									 .padding(.bottom, 10)
+									 .padding(.leading, 10)
 								 }
 								 .cornerRadius(15)
 								 .overlay(
 									 RoundedRectangle(cornerRadius: 15)
-										 .stroke(Color.white, lineWidth: 2)
+										 .stroke(Color.primary, lineWidth: 2)
 								 )
 							 }
 							 .foregroundColor(.white)
@@ -116,6 +132,12 @@ struct ContentView: View {
 			}
 			.onDisappear {
 				viewModel.stopListening()
+			}
+			.onChange(of: scenePhase) { newPhase in
+				if (newPhase == .active) {
+					// Reset the audio engine as closing/reopening app makes existing one non-functional
+					viewModel.configureAudioEngine()
+				}
 			}
 		}
 		.navigationViewStyle(StackNavigationViewStyle())

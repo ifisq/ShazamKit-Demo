@@ -11,24 +11,23 @@ import Combine
 
 @MainActor
 class ViewModel: NSObject, ObservableObject {
-	let audioEngine = AVAudioEngine()
-	let mixerNode = AVAudioMixerNode()
+	var audioEngine = AVAudioEngine()
+	var mixerNode = AVAudioMixerNode()
 	var session: SHSession?
 	@Published var matchedSong: SHMediaItem?
 	@Published var listening: Bool = false
 	@Published var newMatchedSong: Bool = false
-	
-	override init() {
-		super.init()
-		configureAudioEngine()
-	}
-	
+
 	func addAudio(buffer: AVAudioPCMBuffer, audioTime: AVAudioTime) {
 		// Add the audio to the current match request.
 		session?.matchStreamingBuffer(buffer, at: audioTime)
 	}
 	
 	func configureAudioEngine() {
+		// Note: You shouldn't need to re-declare these here, but there were bugs stemming from closing the app and re-opening it and trying to still use the same AVAudioMixerNode/AVAudioEngine, so for now whenever the app enters the foreground the engine & mixer node are recreated
+		audioEngine = AVAudioEngine()
+		mixerNode = AVAudioMixerNode()
+		listening = false
 		// Get the native audio format of the engine's input bus.
 		let inputFormat = audioEngine.inputNode.inputFormat(forBus: 0)
 		
@@ -53,16 +52,9 @@ class ViewModel: NSObject, ObservableObject {
 	
 	func startListening() {
 		do {
-			// Throw an error if the audio engine is already running.
+			// Return if the audio engine is already running.
 			guard !audioEngine.isRunning else { return }
 			let audioSession = AVAudioSession.sharedInstance()
-			
-			// Audio Engine is already running, we just need to un-pause it
-			if audioEngine.isRunning {
-				try? self.audioEngine.start()
-				self.listening = true
-				return
-			}
 			
 			// Ask the user for permission to use the mic if required then start the engine.
 			try audioSession.setCategory(.playAndRecord)
